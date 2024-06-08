@@ -8,6 +8,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useToast } from "../ui/use-toast";
 const FormSchema = z
   .object({
     username: z.string().min(1, "Username is required").max(20),
@@ -22,6 +23,7 @@ const FormSchema = z
 
 const SignUpForm = () => {
   const router = useRouter();
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -33,10 +35,10 @@ const SignUpForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-    const response = await fetch('/api/user', {
-      method: 'POST',
+    const response = await fetch("/api/user", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         username: values.username,
@@ -45,10 +47,14 @@ const SignUpForm = () => {
       }),
     });
 
-    if(response.ok){
-      router.push('/sign-in');
+    if (response.ok) {
+      router.push("/sign-in");
     } else {
-      console.error('Failed to register');
+      toast({
+        title: "Error signing up",
+        description: "Oops! Something went wrong. Please try again.",
+        variant: "destructive"
+      });
     }
   };
 
