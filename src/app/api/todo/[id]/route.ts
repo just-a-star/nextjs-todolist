@@ -50,7 +50,6 @@ export const PATCH = async (req: Request, { params }: { params: { id: string } }
         dueDate: new Date(body.dueDate),
         categoryId: body.categoryId,
         userId: userId,
-        
       },
     });
 

@@ -27,7 +27,7 @@ export const POST = async (req: Request) => {
         dueDate: new Date(body.dueDate),
         categoryId: body.categoryId,
         userId: userId,
-        completed: false,
+        // completed: false,
       },
     });
 
