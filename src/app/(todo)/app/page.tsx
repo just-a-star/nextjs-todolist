@@ -31,7 +31,7 @@ const getCategories = async () => {
 
 const categoryColors: { [key: string]: string } = {
   Personal: "bg-blue-600",
-  Work: "bg-blue-600",
+  Work: "bg-gray-600",
   Shopping: "bg-orange-600",
 };
 
