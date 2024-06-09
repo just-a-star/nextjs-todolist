@@ -10,13 +10,15 @@ const Navbar = async () => {
 
   return (
     <div className="w-full flex flex-col items-center py-4 bg-gradient-to-r from-blue-500 to-teal-400 text-white rounded-lg shadow-md">
-      <p className="m-2">
-        Hello, <span className="font-semibold text-semibold text-gray-00">{session?.user.username}!</span>
-      </p>
-
-      <div>
+      <div className="flex flex-col items-center justify-center">
         {session?.user ? (
-          <UserAccountNav />
+          <div className="flex flex-col items-center">
+            <p className="m-2">
+              Hello, <span className="font-semibold text-semibold text-gray-00">{session?.user.username}!</span>
+            </p>
+
+            <UserAccountNav />
+          </div>
         ) : (
           <Link href="/sign-in">
             <Button className="font-bold bg-green-600 underline">Sign In</Button>
