@@ -4,6 +4,13 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { db } from "./db";
 import { compare } from "bcrypt";
 
+declare module "next-auth" {
+  interface User {
+    id: string;
+    username: string;
+  }
+}
+
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
   secret: process.env.NEXTAUTH_SECRET,
@@ -58,15 +65,16 @@ export const authOptions: NextAuthOptions = {
         ...session,
         user: {
           ...session.user,
+          id: token.id,
           username: token.username,
         },
       };
-      // return session;
     },
     async jwt({ token, user }) {
       if (user) {
         return {
           ...token,
+          id: user.id,
           username: user.username,
         };
       }
