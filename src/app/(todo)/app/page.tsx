@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import CreateTodo from "./createTodo";
 import DeleteTodo from "./deleteTodo";
 import UpdateTodo from "./updateTodo";
+import { formatDistanceToNow } from "date-fns";
 
 const getTodos = async () => {
   const res = await db.todo.findMany({
@@ -26,6 +27,12 @@ const getTodos = async () => {
 const getCategories = async () => {
   const res = await db.category.findMany();
   return res;
+};
+
+const categoryColors: { [key: string]: string } = {
+  Personal: "bg-blue-600",
+  Work: "bg-blue-600",
+  Shopping: "bg-orange-600",
 };
 
 const App = async () => {
@@ -63,13 +70,15 @@ const App = async () => {
               {todos.map((todo) => (
                 <tr key={todo.id} className="even:bg-gray-100">
                   <td className="border border-gray-300 px-4 py-2">{todo.title}</td>
-                  <td className="border border-gray-300 px-4 py-2">{new Date(todo.dueDate).toLocaleDateString()}</td>
-                  <td className="border border-gray-300 px-4 py-2">{todo.category.name}</td>
+                  <td className="border border-gray-300 px-4 py-2">{formatDistanceToNow(new Date(todo.dueDate), { addSuffix: true })}</td>
+                  <td className={`border border-gray-300 px-4 py-2 `}>
+                    <span className={`px-2 p-2 text-white text-sm font-medium rounded-xl py-2 ${categoryColors[todo.category.name] || "bg-gray-600"}`}>
+                      {todo.category.name}
+                    </span>
+                  </td>
                   <td className="border border-gray-300 px-4 py-2">
-                    {/* <button className="text-blue-600 hover:text-blue-800 mr-2"> */}
                     <div className="flex flex-row space-x-2">
                       <UpdateTodo todo={todo} categories={categories} />
-
                       <DeleteTodo todo={todo} />
                     </div>
                   </td>

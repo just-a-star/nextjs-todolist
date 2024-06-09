@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { FaEdit } from "react-icons/fa";
+import { format } from "date-fns";
 
 type Todo = {
   id: string;
@@ -22,7 +23,7 @@ type Todo = {
 const UpdateTodo = ({ categories, todo }: { categories: Category[]; todo: Todo }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState(todo.title);
-  const [dueDate, setDueDate] = useState(todo.dueDate.toString());
+  const [dueDate, setDueDate] = useState(format(new Date(todo.dueDate), "yyyy-MM-dd"));
   const [category, setCategory] = useState(todo.category.name);
 
   const router = useRouter();
