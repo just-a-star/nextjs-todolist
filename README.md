@@ -2,7 +2,7 @@
 
 # nextjs-todolist-w-prisma-postgresql
 
-This is a to-do list application created with Next.js 14. You can use it to manage your tasks efficiently. For a preview, visit the deployed website: [https://nextjs-todolist-bintang-rahmatullahs-projects.vercel.app/](https://nextjs-todolist-bintang-rahmatullahs-projects.vercel.app/), which is deployed using Vercel with its Vercel Postgres.
+This is a to-do list application created with Next.js 14. You can use it to manage your tasks efficiently. For a preview, visit the deployed website: [https://nextjs-todolist-git-production-bintang-rahmatullahs-projects.vercel.app/](https://nextjs-todolist-git-production-bintang-rahmatullahs-projects.vercel.app/), which is deployed using Vercel with its Vercel Postgres.
 
 ## Getting Started
 
