@@ -8,9 +8,11 @@ import DeleteTodo from "./deleteTodo";
 import UpdateTodo from "./updateTodo";
 import { formatDistanceToNow } from "date-fns";
 
-const getTodos = async () => {
+const getTodos = async (userId: string) => {
   const res = await db.todo.findMany({
+    where: { userId },
     select: {
+      
       id: true,
       title: true,
       dueDate: true,
@@ -39,8 +41,6 @@ const App = async () => {
   const session = await getServerSession(authOptions);
   console.log(session);
 
-  const [todos, categories] = await Promise.all([getTodos(), getCategories()]);
-
   if (!session) {
     return (
       <main className="bg-gray-50 flex min-h-screen flex-col items-center p-6">
@@ -49,6 +49,8 @@ const App = async () => {
       </main>
     );
   }
+
+  const [todos, categories] = await Promise.all([getTodos(session.user.id), getCategories()]);
 
   return (
     <main className="bg-gray-50 flex min-h-screen flex-col items-center p-6">
